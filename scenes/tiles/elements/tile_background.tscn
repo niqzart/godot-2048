@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://clyrhoaintow5"]
+
+[ext_resource type="Script" path="res://scenes/tiles/elements/tile_background.gd" id="1_i63k6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgks5"]
+bg_color = Color(0, 0.0533333, 0.64, 1)
+corner_radius_top_left = 75
+corner_radius_top_right = 75
+corner_radius_bottom_right = 75
+corner_radius_bottom_left = 75
+
+[node name="TileBackground" type="Node2D"]
+script = ExtResource("1_i63k6")
+
+[node name="Background" type="Panel" parent="."]
+offset_right = 400.0
+offset_bottom = 400.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cgks5")
