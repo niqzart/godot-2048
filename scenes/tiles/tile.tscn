@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq00cw5wh0k6w"]
+[gd_scene load_steps=5 format=3 uid="uid://cq00cw5wh0k6w"]
 
 [ext_resource type="FontFile" uid="uid://b5pqss1g7e2rn" path="res://common/fonts/Oxanium-Medium.ttf" id="1_h5dvk"]
+[ext_resource type="Script" path="res://scenes/tiles/tile.gd" id="2_ntgnx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26odo"]
 bg_color = Color(0, 0.0533333, 0.64, 1)
@@ -21,3 +22,4 @@ theme = SubResource("Theme_68qol")
 text = "2048"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("2_ntgnx")
