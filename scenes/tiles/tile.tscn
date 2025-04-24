@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cq00cw5wh0k6w"]
+
+[ext_resource type="FontFile" uid="uid://b5pqss1g7e2rn" path="res://common/fonts/Oxanium-Medium.ttf" id="1_h5dvk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26odo"]
+bg_color = Color(0, 0.0533333, 0.64, 1)
+corner_radius_top_left = 75
+corner_radius_top_right = 75
+corner_radius_bottom_right = 75
+corner_radius_bottom_left = 75
+
+[sub_resource type="Theme" id="Theme_68qol"]
+Label/font_sizes/font_size = 140
+Label/fonts/font = ExtResource("1_h5dvk")
+Label/styles/normal = SubResource("StyleBoxFlat_26odo")
+
+[node name="Tile" type="Label"]
+offset_right = 400.0
+offset_bottom = 400.0
+theme = SubResource("Theme_68qol")
+text = "2048"
+horizontal_alignment = 1
+vertical_alignment = 1
