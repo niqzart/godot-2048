@@ -1,12 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://jxbsq4j1pk01"]
+[gd_scene load_steps=5 format=3 uid="uid://jxbsq4j1pk01"]
 
-[ext_resource type="PackedScene" uid="uid://cq00cw5wh0k6w" path="res://scenes/tiles/tile.tscn" id="1_1t0ud"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_utrw1"]
+[ext_resource type="PackedScene" uid="uid://b8mhs07e7ipbi" path="res://scenes/tiles/empty_tile.tscn" id="2_kwrid"]
+[ext_resource type="PackedScene" uid="uid://cfgun42imawt7" path="res://scenes/tiles/number_tile.tscn" id="3_t7vxk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i33ig"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_utrw1")
+EmptyTileScene = ExtResource("2_kwrid")
 
-[node name="Tile" parent="." instance=ExtResource("1_1t0ud")]
+[node name="Background" type="Node2D" parent="."]
+
+[node name="BoardBackground" type="Panel" parent="Background"]
+offset_right = 425.0
+offset_bottom = 425.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i33ig")
+
+[node name="NumberTile" parent="." instance=ExtResource("3_t7vxk")]
+position = Vector2(5, 5)
+scale = Vector2(0.25, 0.25)
 
 [node name="UpdateTimer" type="Timer" parent="."]
 autostart = true

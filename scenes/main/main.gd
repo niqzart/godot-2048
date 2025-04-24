@@ -1,8 +1,38 @@
 extends Node2D
 
+const TILE_SCALE: float = 0.25
+
+@export var EmptyTileScene: PackedScene
+
+
+func place_tile(tile: Node2D, x_index: int, y_index: int) -> void:
+    tile.position = Vector2(5 + 105 * x_index, 5 + 105 * y_index)
+    tile.scale = Vector2(TILE_SCALE, TILE_SCALE)
+
+
+func _ready() -> void:
+    var background_tile: Node2D
+    for x_index in range(4):
+        for y_index in range(4):
+            background_tile = EmptyTileScene.instantiate()
+            self.place_tile(background_tile, x_index, y_index)
+            $Background.add_child(background_tile)
+
+
+var current_x_index: int = 0
+var current_y_index: int = 0
+
 
 func _on_update_timer_timeout() -> void:
-    var new_tile_power = $Tile.tile_power + 1
+    var new_tile_power = $NumberTile.tile_power + 1
     if new_tile_power > 16:
         new_tile_power = 1
-    $Tile.update_tile_power(new_tile_power)
+    $NumberTile.update_tile_power(new_tile_power)
+
+    self.current_x_index += 1
+    if self.current_x_index > 3:
+        self.current_x_index = 0
+        self.current_y_index += 1
+        if self.current_y_index > 3:
+            self.current_y_index = 0
+    self.place_tile($NumberTile, self.current_x_index, self.current_y_index)

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4ilpjw3h4cqy"]
+
+[ext_resource type="Script" path="res://scenes/tiles/elements/tile_label.gd" id="1_0utfd"]
+[ext_resource type="FontFile" uid="uid://b5pqss1g7e2rn" path="res://common/fonts/Oxanium-Medium.ttf" id="2_rsyyt"]
+
+[node name="TileLabel" type="Node2D"]
+script = ExtResource("1_0utfd")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 400.0
+offset_bottom = 400.0
+theme_override_fonts/font = ExtResource("2_rsyyt")
+theme_override_font_sizes/font_size = 140
+text = "2048"
+horizontal_alignment = 1
+vertical_alignment = 1
