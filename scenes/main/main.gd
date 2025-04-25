@@ -16,8 +16,6 @@ func _on_update_timer_timeout() -> void:
         new_tile_power = 1
     self.number_tile.update_tile_power(new_tile_power)
 
-    var source_cell_id = self.current_cell_id
-
     self.current_cell_id.x += 1
     if self.current_cell_id.x > 3:
         self.current_cell_id.x = 0
@@ -25,4 +23,4 @@ func _on_update_timer_timeout() -> void:
         if self.current_cell_id.y > 3:
             self.current_cell_id.y = 0
 
-    self.game_controller.move_tile(source_cell_id, self.current_cell_id)
+    self.game_controller.move_tile(self.number_tile, self.current_cell_id)

@@ -15,15 +15,14 @@ func _ready() -> void:
 
 
 func create_tile(cell_id: Vector2) -> NumberTile:
-    var tile = NumberTileScene.instantiate()
+    var tile: NumberTile = (NumberTileScene.instantiate() as NumberTile)
     self.game_state.set_board_cell(cell_id, tile)
     self.game_grid.place_tile(cell_id, tile)
     self.add_child(tile)
     return tile
 
 
-func move_tile(source_cell_id: Vector2, target_cell_id: Vector2) -> void:
-    var tile = self.game_state.get_board_cell(source_cell_id)
-    self.game_state.clear_board_cell(source_cell_id)
-    self.game_state.set_board_cell(target_cell_id, tile)
-    self.game_grid.place_tile(target_cell_id, tile)
+func move_tile(source_tile: NumberTile, target_cell_id: Vector2) -> void:
+    self.game_state.clear_board_cell(source_tile.cell_id)
+    self.game_state.set_board_cell(target_cell_id, source_tile)
+    self.game_grid.place_tile(target_cell_id, source_tile)

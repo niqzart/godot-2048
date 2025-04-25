@@ -31,6 +31,7 @@ func get_board_cell(cell_id: Vector2) -> NumberTile:  # NumberTile | null
 
 
 func set_board_cell(cell_id: Vector2, tile: NumberTile) -> void:
+    tile.update_cell_id(cell_id)
     self.cell_id_to_tile[cell_id] = tile
     self.remove_empty_cell(cell_id)
 
