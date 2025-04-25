@@ -58,33 +58,51 @@ func merge_tiles(source_ref: TileRef, target_ref: TileRef) -> void:
     source_ref.tile.increment_power()
 
 
-func shift_row(start_cell_id: Vector2i, cell_id_step: Vector2i) -> void:
-    var target_cell_id = start_cell_id
-    var source_cell_id = start_cell_id + cell_id_step
+func shift_row(direction: Vector2i, row_index: int) -> void:
+    # only one coordinate will be changing
+    var movement_axis: int = direction.abs().max_axis_index()
+    # algorihm goes backwards, so direction is negated
+    var cell_id_step: Vector2i = -direction
+
+    var starting_cell_id: Vector2i = Vector2i.ZERO
+    if cell_id_step < Vector2i.ZERO:
+        # cell_id_step is negative, so we start from the end of the row
+        starting_cell_id[movement_axis] = self.board_shape[movement_axis] - 1
+    # the other axis is attached to row_id
+    starting_cell_id[(movement_axis + 1) % 2] = row_index
+
+    var target_cell_id: Vector2i = starting_cell_id
+    var source_cell_id: Vector2i = starting_cell_id + cell_id_step
 
     var source_ref: TileRef
     var target_ref: TileRef
 
-    while (
-        source_cell_id.x >= 0
-        and source_cell_id.y >= 0
-        and source_cell_id.x < self.board_shape.x
-        and source_cell_id.y < self.board_shape.y
+    while (  # loops through the whole row
+        source_cell_id[movement_axis] >= 0
+        and source_cell_id[movement_axis] < self.board_shape[movement_axis]
     ):
         source_ref = self.get_tile(source_cell_id)
         if source_ref == null:
+            # can't move or merge an empty cell, move to the next source
             source_cell_id += cell_id_step
             continue
 
         target_ref = self.get_tile(target_cell_id)
         if target_ref == null:
+            # can move source to an empty target cell, so do that
             self.move_tile(source_ref, target_cell_id)
+            # next time we'll try to merge the next source into the same target
             source_cell_id += cell_id_step
         elif source_ref.tile.power == target_ref.tile.power:
+            # can merge source with target, so do that
             self.merge_tiles(source_ref, target_ref)
+            # two merges on the same cell are not allowed, go to the next target
             target_cell_id += cell_id_step
+            # current source is now an empty cell, so move on to the next source
             source_cell_id += cell_id_step
         else:
+            # move and merge are not possible, move on to the next target
             target_cell_id += cell_id_step
             if source_cell_id == target_cell_id:
+                # source can't be the same as target
                 source_cell_id += cell_id_step
