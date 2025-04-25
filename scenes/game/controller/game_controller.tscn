@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bowce2gkdtjkp"]
+[gd_scene load_steps=5 format=3 uid="uid://bowce2gkdtjkp"]
 
 [ext_resource type="Script" path="res://scenes/game/controller/game_controller.gd" id="1_ilgnu"]
 [ext_resource type="PackedScene" uid="uid://dyui130rjudmy" path="res://scenes/game/grid/game_grid.tscn" id="2_jmpve"]
+[ext_resource type="PackedScene" uid="uid://cfgun42imawt7" path="res://scenes/components/tiles/number_tile/number_tile.tscn" id="2_jwl3b"]
 [ext_resource type="PackedScene" uid="uid://bf8q7b2f6nrbd" path="res://scenes/game/state/game_state.tscn" id="3_ld1w1"]
 
 [node name="GameController" type="Node2D"]
 script = ExtResource("1_ilgnu")
+NumberTileScene = ExtResource("2_jwl3b")
 
 [node name="GameGrid" parent="." instance=ExtResource("2_jmpve")]
 

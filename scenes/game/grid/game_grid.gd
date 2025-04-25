@@ -5,7 +5,6 @@ const GAP_WIDTH: int = 5
 const TILE_WIDTH: int = 100
 
 @onready var board_background: Node2D = $Background
-@onready var board_foreground: Node2D = $Foreground
 
 @export var GridCellBackgroundScene: PackedScene
 
@@ -26,10 +25,6 @@ func create_grid_cell_backgrounds(board_shape: Vector2) -> void:
                 Vector2(x_index, y_index),
                 GridCellBackgroundScene.instantiate(),
             )
-
-
-func add_child_tile(tile: NumberTile) -> void:
-    self.board_foreground.add_child(tile)
 
 
 func place_tile(cell_id: Vector2, tile: NumberTile) -> void:

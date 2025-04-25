@@ -1,6 +1,8 @@
 extends Node2D
 class_name GameController
 
+@export var NumberTileScene: PackedScene
+
 @onready var game_state: GameState = $GameState
 @onready var game_grid: GameGrid = $GameGrid
 
@@ -12,10 +14,12 @@ func _ready() -> void:
     self.game_grid.create_grid_cell_backgrounds(self.board_shape)
 
 
-func add_tile(cell_id: Vector2, tile: NumberTile) -> void:
+func create_tile(cell_id: Vector2) -> NumberTile:
+    var tile = NumberTileScene.instantiate()
     self.game_state.set_board_cell(cell_id, tile)
     self.game_grid.place_tile(cell_id, tile)
-    self.game_grid.add_child_tile(tile)
+    self.add_child(tile)
+    return tile
 
 
 func move_tile(source_cell_id: Vector2, target_cell_id: Vector2) -> void:
