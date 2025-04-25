@@ -36,6 +36,8 @@ func create_tile(cell_id: Vector2, power: int) -> NumberTile:
 
 func get_tile(cell_id: Vector2) -> TileRef:  # TileRef | null
     var tile = self.game_state.get_board_cell(cell_id)
+    if tile == null:
+        return null
     return TileRef.new(cell_id, tile)
 
 
@@ -54,3 +56,35 @@ func merge_tiles(source_ref: TileRef, target_ref: TileRef) -> void:
     self.delete_tile(target_ref)
     self.move_tile(source_ref, target_ref.cell_id)
     source_ref.tile.increment_power()
+
+
+func shift_row(start_cell_id: Vector2, cell_id_step: Vector2) -> void:
+    var target_cell_id = start_cell_id
+    var source_cell_id = start_cell_id + cell_id_step
+
+    var source_ref: TileRef
+    var target_ref: TileRef
+
+    while (
+        source_cell_id.x >= 0
+        and source_cell_id.y >= 0
+        and source_cell_id.x < self.board_shape.x
+        and source_cell_id.y < self.board_shape.y
+    ):
+        source_ref = self.get_tile(source_cell_id)
+        if source_ref == null:
+            source_cell_id += cell_id_step
+            continue
+
+        target_ref = self.get_tile(target_cell_id)
+        if target_ref == null:
+            self.move_tile(source_ref, target_cell_id)
+            source_cell_id += cell_id_step
+        elif source_ref.tile.power == target_ref.tile.power:
+            self.merge_tiles(source_ref, target_ref)
+            target_cell_id += cell_id_step
+            source_cell_id += cell_id_step
+        else:
+            target_cell_id += cell_id_step
+            if source_cell_id == target_cell_id:
+                source_cell_id += cell_id_step

@@ -8,20 +8,23 @@ var current_cell_id: Vector2 = Vector2(0, 0)
 func _ready() -> void:
     self.game_controller.create_tile(self.current_cell_id, 11)
     self.game_controller.create_tile(Vector2(1, 1), 11)
+    self.game_controller.create_tile(Vector2(0, 1), 11)
+    self.game_controller.create_tile(Vector2(1, 0), 12)
+
+
+var current_direction: Vector2 = Vector2(-1, 0)
 
 
 func _on_update_timer_timeout() -> void:
-    var source_ref = game_controller.get_tile(self.current_cell_id)
+    var starting_point: Vector2
+    if self.current_direction.x == -1:
+        starting_point = Vector2(3, 0)
+    elif self.current_direction.x == 1:
+        starting_point = Vector2(0, 3)
+    elif self.current_direction.y == -1:
+        starting_point = Vector2(3, 3)
+    elif self.current_direction.y == 1:
+        starting_point = Vector2(0, 0)
 
-    self.current_cell_id.x += 1
-    if self.current_cell_id.x > 3:
-        self.current_cell_id.x = 0
-        self.current_cell_id.y += 1
-        if self.current_cell_id.y > 3:
-            self.current_cell_id.y = 0
-
-    var target_ref = game_controller.get_tile(self.current_cell_id)
-    if target_ref.tile == null:
-        self.game_controller.move_tile(source_ref, self.current_cell_id)
-    else:
-        self.game_controller.merge_tiles(source_ref, target_ref)
+    self.game_controller.shift_row(starting_point, self.current_direction)
+    self.current_direction = self.current_direction.rotated(deg_to_rad(90)).round()
