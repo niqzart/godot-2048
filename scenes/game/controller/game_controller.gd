@@ -6,14 +6,14 @@ class_name GameController
 @onready var game_state: GameState = $GameState
 @onready var game_grid: GameGrid = $GameGrid
 
-var board_shape: Vector2 = Vector2(4, 4)
+var board_shape: Vector2i = Vector2i(4, 4)
 
 
 class TileRef:
-    var cell_id: Vector2
+    var cell_id: Vector2i
     var tile: NumberTile
 
-    func _init(cell_id_: Vector2, tile_: NumberTile) -> void:
+    func _init(cell_id_: Vector2i, tile_: NumberTile) -> void:
         self.cell_id = cell_id_
         self.tile = tile_
 
@@ -23,7 +23,7 @@ func _ready() -> void:
     self.game_grid.create_grid_cell_backgrounds(self.board_shape)
 
 
-func create_tile(cell_id: Vector2, power: int) -> NumberTile:
+func create_tile(cell_id: Vector2i, power: int) -> NumberTile:
     var tile: NumberTile = (NumberTileScene.instantiate() as NumberTile)
     tile.update_power(power)
 
@@ -34,7 +34,7 @@ func create_tile(cell_id: Vector2, power: int) -> NumberTile:
     return tile
 
 
-func get_tile(cell_id: Vector2) -> TileRef:  # TileRef | null
+func get_tile(cell_id: Vector2i) -> TileRef:  # TileRef | null
     var tile = self.game_state.get_board_cell(cell_id)
     if tile == null:
         return null
@@ -58,7 +58,7 @@ func merge_tiles(source_ref: TileRef, target_ref: TileRef) -> void:
     source_ref.tile.increment_power()
 
 
-func shift_row(start_cell_id: Vector2, cell_id_step: Vector2) -> void:
+func shift_row(start_cell_id: Vector2i, cell_id_step: Vector2i) -> void:
     var target_cell_id = start_cell_id
     var source_cell_id = start_cell_id + cell_id_step
 
