@@ -4,8 +4,6 @@ class_name GameGrid
 const GAP_WIDTH: int = 5
 const TILE_WIDTH: int = 100
 
-@onready var board_background: Node2D = $Background
-
 @export var GridCellBackgroundScene: PackedScene
 
 
@@ -15,7 +13,7 @@ func cell_id_to_position(cell_id: Vector2) -> Vector2:
 
 func add_cell_background(cell_id: Vector2, background: Node2D) -> void:
     background.position = self.cell_id_to_position(cell_id)
-    self.board_background.add_child(background)
+    self.add_child(background)
 
 
 func create_grid_cell_backgrounds(board_shape: Vector2) -> void:

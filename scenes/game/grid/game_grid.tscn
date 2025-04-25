@@ -14,9 +14,7 @@ corner_radius_bottom_left = 25
 script = ExtResource("1_md3gx")
 GridCellBackgroundScene = ExtResource("2_qp77h")
 
-[node name="Background" type="Node2D" parent="."]
-
-[node name="BackgroundRect" type="Panel" parent="Background"]
+[node name="BackgroundRect" type="Panel" parent="."]
 offset_right = 425.0
 offset_bottom = 425.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qnumq")
