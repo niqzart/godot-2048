@@ -111,3 +111,15 @@ func shift_row(direction: Vector2i, row_index: int) -> void:
 func shift_board(direction: Vector2i) -> void:
     for row_index in range(4):
         self.shift_row(direction, row_index)
+
+
+var chance_of_spawning_a_four: float = 0.1
+
+
+func spawn_random_tile() -> void:
+    var empty_cell_ids = self.game_state.list_empty_cell_ids()
+    var cell_id = empty_cell_ids[randi_range(0, empty_cell_ids.size() - 1)]
+
+    var tile_power = 2 if randf() < chance_of_spawning_a_four else 1
+
+    self.create_tile(cell_id, tile_power)

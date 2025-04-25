@@ -16,7 +16,7 @@ func remove_empty_cell(cell_id: Vector2i) -> void:
     self.empty_cell_ids.erase(cell_id)  # works like `Set.remove`
 
 
-func list_empty_cells() -> Array[Vector2i]:
+func list_empty_cell_ids() -> Array:  # type: Array[Vector2i]
     return self.empty_cell_ids.keys()  # works like `Set.items`
 
 

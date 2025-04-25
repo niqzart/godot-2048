@@ -2,14 +2,10 @@ extends Node2D
 
 @onready var game_controller: GameController = $GameController
 
-var current_cell_id: Vector2i = Vector2i(0, 0)
-
 
 func _ready() -> void:
-    self.game_controller.create_tile(self.current_cell_id, 11)
-    self.game_controller.create_tile(Vector2i(1, 1), 11)
-    self.game_controller.create_tile(Vector2i(0, 1), 11)
-    self.game_controller.create_tile(Vector2i(1, 0), 12)
+    self.game_controller.spawn_random_tile()
+    self.game_controller.spawn_random_tile()
 
 
 var directions: Array[Vector2i] = [
@@ -27,3 +23,6 @@ func _on_update_timer_timeout() -> void:
 
     self.current_direction_index += 1
     self.current_direction_index %= 4
+
+    if self.game_controller.game_state.list_empty_cell_ids().size() != 0:
+        self.game_controller.spawn_random_tile()
