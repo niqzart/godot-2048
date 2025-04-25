@@ -14,15 +14,29 @@ func _ready() -> void:
     self.game_grid.create_grid_cell_backgrounds(self.board_shape)
 
 
-func create_tile(cell_id: Vector2) -> NumberTile:
+func create_tile(cell_id: Vector2, power: int) -> NumberTile:
     var tile: NumberTile = (NumberTileScene.instantiate() as NumberTile)
+    tile.update_power(power)
+
     self.game_state.set_board_cell(cell_id, tile)
     self.game_grid.place_tile(cell_id, tile)
     self.add_child(tile)
+
     return tile
+
+
+func delete_tile(tile: NumberTile) -> void:
+    self.game_state.clear_board_cell(tile.cell_id)
+    tile.queue_free()
 
 
 func move_tile(source_tile: NumberTile, target_cell_id: Vector2) -> void:
     self.game_state.clear_board_cell(source_tile.cell_id)
     self.game_state.set_board_cell(target_cell_id, source_tile)
     self.game_grid.place_tile(target_cell_id, source_tile)
+
+
+func merge_tiles(source_tile: NumberTile, target_tile: NumberTile) -> void:
+    self.delete_tile(target_tile)
+    self.move_tile(source_tile, target_tile.cell_id)
+    source_tile.increment_power()

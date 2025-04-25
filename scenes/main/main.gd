@@ -7,15 +7,11 @@ var number_tile: NumberTile
 
 
 func _ready() -> void:
-    self.number_tile = self.game_controller.create_tile(self.current_cell_id)
+    self.number_tile = self.game_controller.create_tile(self.current_cell_id, 11)
+    self.game_controller.create_tile(Vector2(1, 1), 11)
 
 
 func _on_update_timer_timeout() -> void:
-    var new_tile_power = self.number_tile.tile_power + 1
-    if new_tile_power > 16:
-        new_tile_power = 1
-    self.number_tile.update_tile_power(new_tile_power)
-
     self.current_cell_id.x += 1
     if self.current_cell_id.x > 3:
         self.current_cell_id.x = 0
@@ -23,4 +19,8 @@ func _on_update_timer_timeout() -> void:
         if self.current_cell_id.y > 3:
             self.current_cell_id.y = 0
 
-    self.game_controller.move_tile(self.number_tile, self.current_cell_id)
+    var target_tile = game_controller.game_state.get_board_cell(self.current_cell_id)
+    if target_tile == null:
+        self.game_controller.move_tile(self.number_tile, self.current_cell_id)
+    else:
+        self.game_controller.merge_tiles(self.number_tile, target_tile)
