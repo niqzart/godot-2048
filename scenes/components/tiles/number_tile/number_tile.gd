@@ -1,4 +1,5 @@
 extends Node2D
+class_name NumberTile
 
 var tile_power: int = 11
 
