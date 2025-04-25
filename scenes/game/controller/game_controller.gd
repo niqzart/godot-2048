@@ -109,7 +109,8 @@ func shift_row(direction: Vector2i, row_index: int) -> void:
 
 
 func shift_board(direction: Vector2i) -> void:
-    for row_index in range(4):
+    var row_count_axis: int = direction.abs().min_axis_index()
+    for row_index in range(self.board_shape[row_count_axis]):
         self.shift_row(direction, row_index)
 
 
