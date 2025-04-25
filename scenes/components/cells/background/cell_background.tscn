@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8mhs07e7ipbi"]
+[gd_scene load_steps=2 format=3 uid="uid://2tsjsci4iaq4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_noqwg"]
 bg_color = Color(0.290196, 0.290196, 0.290196, 1)
@@ -7,9 +7,10 @@ corner_radius_top_right = 75
 corner_radius_bottom_right = 75
 corner_radius_bottom_left = 75
 
-[node name="EmptyTile" type="Node2D"]
+[node name="CellBackground" type="Node2D"]
+scale = Vector2(0.25, 0.25)
 
-[node name="EmptyTile" type="Panel" parent="."]
+[node name="BackgroundRect" type="Panel" parent="."]
 offset_right = 400.0
 offset_bottom = 400.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_noqwg")

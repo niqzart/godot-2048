@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://clyrhoaintow5"]
 
-[ext_resource type="Script" path="res://scenes/tiles/elements/tile_background.gd" id="1_i63k6"]
+[ext_resource type="Script" path="res://scenes/components/tiles/tile_background/tile_background.gd" id="1_i63k6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgks5"]
 bg_color = Color(0, 0.0533333, 0.64, 1)

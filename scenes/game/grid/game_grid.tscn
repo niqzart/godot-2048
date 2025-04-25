@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyui130rjudmy"]
+
+[ext_resource type="Script" path="res://scenes/game/grid/game_grid.gd" id="1_md3gx"]
+[ext_resource type="PackedScene" uid="uid://2tsjsci4iaq4" path="res://scenes/components/cells/background/cell_background.tscn" id="2_qp77h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qnumq"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="GameGrid" type="Node2D"]
+script = ExtResource("1_md3gx")
+GridCellBackgroundScene = ExtResource("2_qp77h")
+
+[node name="BackgroundRect" type="Panel" parent="."]
+offset_right = 425.0
+offset_bottom = 425.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qnumq")

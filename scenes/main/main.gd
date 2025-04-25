@@ -1,38 +1,27 @@
 extends Node2D
 
-const TILE_SCALE: float = 0.25
+@onready var game_controller: GameController = $GameController
 
-@export var EmptyTileScene: PackedScene
-
-
-func place_tile(tile: Node2D, x_index: int, y_index: int) -> void:
-    tile.position = Vector2(5 + 105 * x_index, 5 + 105 * y_index)
-    tile.scale = Vector2(TILE_SCALE, TILE_SCALE)
+var current_cell_id: Vector2 = Vector2(0, 0)
 
 
 func _ready() -> void:
-    var background_tile: Node2D
-    for x_index in range(4):
-        for y_index in range(4):
-            background_tile = EmptyTileScene.instantiate()
-            self.place_tile(background_tile, x_index, y_index)
-            $Background.add_child(background_tile)
-
-
-var current_x_index: int = 0
-var current_y_index: int = 0
+    self.game_controller.create_tile(self.current_cell_id, 11)
+    self.game_controller.create_tile(Vector2(1, 1), 11)
 
 
 func _on_update_timer_timeout() -> void:
-    var new_tile_power = $NumberTile.tile_power + 1
-    if new_tile_power > 16:
-        new_tile_power = 1
-    $NumberTile.update_tile_power(new_tile_power)
+    var source_ref = game_controller.get_tile(self.current_cell_id)
 
-    self.current_x_index += 1
-    if self.current_x_index > 3:
-        self.current_x_index = 0
-        self.current_y_index += 1
-        if self.current_y_index > 3:
-            self.current_y_index = 0
-    self.place_tile($NumberTile, self.current_x_index, self.current_y_index)
+    self.current_cell_id.x += 1
+    if self.current_cell_id.x > 3:
+        self.current_cell_id.x = 0
+        self.current_cell_id.y += 1
+        if self.current_cell_id.y > 3:
+            self.current_cell_id.y = 0
+
+    var target_ref = game_controller.get_tile(self.current_cell_id)
+    if target_ref.tile == null:
+        self.game_controller.move_tile(source_ref, self.current_cell_id)
+    else:
+        self.game_controller.merge_tiles(source_ref, target_ref)
