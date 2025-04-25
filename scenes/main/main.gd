@@ -12,19 +12,18 @@ func _ready() -> void:
     self.game_controller.create_tile(Vector2i(1, 0), 12)
 
 
-var current_direction: Vector2 = Vector2(-1, 0)
+var directions: Array[Vector2i] = [
+    Vector2i.RIGHT,
+    Vector2i.DOWN,
+    Vector2i.LEFT,
+    Vector2i.UP,
+]
+var current_direction_index: int = 0
 
 
 func _on_update_timer_timeout() -> void:
-    var starting_point: Vector2i
-    if self.current_direction.x == -1:
-        starting_point = Vector2i(3, 0)
-    elif self.current_direction.x == 1:
-        starting_point = Vector2i(0, 3)
-    elif self.current_direction.y == -1:
-        starting_point = Vector2i(3, 3)
-    elif self.current_direction.y == 1:
-        starting_point = Vector2i(0, 0)
+    var direction = self.directions[self.current_direction_index]
+    self.game_controller.shift_board(direction)
 
-    self.game_controller.shift_row(starting_point, self.current_direction)
-    self.current_direction = self.current_direction.rotated(deg_to_rad(90)).round()
+    self.current_direction_index += 1
+    self.current_direction_index %= 4

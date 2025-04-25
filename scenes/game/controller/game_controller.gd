@@ -106,3 +106,8 @@ func shift_row(direction: Vector2i, row_index: int) -> void:
             if source_cell_id == target_cell_id:
                 # source can't be the same as target
                 source_cell_id += cell_id_step
+
+
+func shift_board(direction: Vector2i) -> void:
+    for row_index in range(4):
+        self.shift_row(direction, row_index)
