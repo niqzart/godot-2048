@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4ilpjw3h4cqy"]
 
-[ext_resource type="Script" path="res://scenes/tiles/elements/tile_label.gd" id="1_0utfd"]
+[ext_resource type="Script" path="res://scenes/components/tiles/tile_label/tile_label.gd" id="1_0utfd"]
 [ext_resource type="FontFile" uid="uid://b5pqss1g7e2rn" path="res://common/fonts/Oxanium-Medium.ttf" id="2_rsyyt"]
 
 [node name="TileLabel" type="Node2D"]

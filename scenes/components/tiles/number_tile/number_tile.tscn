@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfgun42imawt7"]
+
+[ext_resource type="Script" path="res://scenes/components/tiles/number_tile/number_tile.gd" id="1_fo0k8"]
+[ext_resource type="PackedScene" uid="uid://clyrhoaintow5" path="res://scenes/components/tiles/tile_background/tile_background.tscn" id="2_emvgi"]
+[ext_resource type="PackedScene" uid="uid://b4ilpjw3h4cqy" path="res://scenes/components/tiles/tile_label/tile_label.tscn" id="3_gh6le"]
+
+[node name="NumberTile" type="Node2D"]
+scale = Vector2(0.25, 0.25)
+script = ExtResource("1_fo0k8")
+
+[node name="TileBackground" parent="." instance=ExtResource("2_emvgi")]
+
+[node name="TileLabel" parent="." instance=ExtResource("3_gh6le")]
