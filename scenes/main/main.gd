@@ -1,12 +1,12 @@
 extends Node2D
 
+@onready var game_controller: GameController = $GameController
 
-func place_tile(tile: Node2D, x_index: int, y_index: int) -> void:
-    tile.position = Vector2(5 + 105 * x_index, 5 + 105 * y_index)
+var current_cell_id: Vector2 = Vector2(0, 0)
 
 
-var current_x_index: int = 0
-var current_y_index: int = 0
+func _ready() -> void:
+    self.game_controller.add_tile(self.current_cell_id, $NumberTile)
 
 
 func _on_update_timer_timeout() -> void:
@@ -15,10 +15,13 @@ func _on_update_timer_timeout() -> void:
         new_tile_power = 1
     $NumberTile.update_tile_power(new_tile_power)
 
-    self.current_x_index += 1
-    if self.current_x_index > 3:
-        self.current_x_index = 0
-        self.current_y_index += 1
-        if self.current_y_index > 3:
-            self.current_y_index = 0
-    self.place_tile($NumberTile, self.current_x_index, self.current_y_index)
+    var source_cell_id = self.current_cell_id
+
+    self.current_cell_id.x += 1
+    if self.current_cell_id.x > 3:
+        self.current_cell_id.x = 0
+        self.current_cell_id.y += 1
+        if self.current_cell_id.y > 3:
+            self.current_cell_id.y = 0
+
+    self.game_controller.move_tile(source_cell_id, self.current_cell_id)
