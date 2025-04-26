@@ -58,7 +58,7 @@ func merge_tiles(source_ref: TileRef, target_ref: TileRef) -> void:
     source_ref.tile.increment_power()
 
 
-func shift_row(direction: Vector2i, row_index: int) -> void:
+func shift_row(direction: Vector2i, row_index: int) -> bool:
     # only one coordinate will be changing
     var movement_axis: int = direction.abs().max_axis_index()
     # algorihm goes backwards, so direction is negated
@@ -77,6 +77,8 @@ func shift_row(direction: Vector2i, row_index: int) -> void:
     var source_ref: TileRef
     var target_ref: TileRef
 
+    var has_anything_moved: bool = false
+
     while (  # loops through the whole row
         source_cell_id[movement_axis] >= 0
         and source_cell_id[movement_axis] < self.board_shape[movement_axis]
@@ -91,11 +93,13 @@ func shift_row(direction: Vector2i, row_index: int) -> void:
         if target_ref == null:
             # can move source to an empty target cell, so do that
             self.move_tile(source_ref, target_cell_id)
+            has_anything_moved = true
             # next time we'll try to merge the next source into the same target
             source_cell_id += cell_id_step
         elif source_ref.tile.power == target_ref.tile.power:
             # can merge source with target, so do that
             self.merge_tiles(source_ref, target_ref)
+            has_anything_moved = true
             # two merges on the same cell are not allowed, go to the next target
             target_cell_id += cell_id_step
             # current source is now an empty cell, so move on to the next source
@@ -107,7 +111,52 @@ func shift_row(direction: Vector2i, row_index: int) -> void:
                 # source can't be the same as target
                 source_cell_id += cell_id_step
 
+    return has_anything_moved
 
-func shift_board(direction: Vector2i) -> void:
-    for row_index in range(4):
-        self.shift_row(direction, row_index)
+
+func shift_board(direction: Vector2i) -> bool:
+    var row_count_axis: int = direction.abs().min_axis_index()
+
+    var has_anything_moved: bool = false
+    for row_index in range(self.board_shape[row_count_axis]):
+        if self.shift_row(direction, row_index):
+            has_anything_moved = true
+    return has_anything_moved
+
+
+var chance_of_spawning_a_four: float = 0.1
+
+
+func spawn_random_tile() -> void:
+    var empty_cell_ids = self.game_state.list_empty_cell_ids()
+    var cell_id = empty_cell_ids[randi_range(0, empty_cell_ids.size() - 1)]
+
+    var tile_power = 2 if randf() < chance_of_spawning_a_four else 1
+
+    self.create_tile(cell_id, tile_power)
+
+
+func clear_all_tiles() -> void:
+    var ref: TileRef  # type: TileRef | null
+    for x_index in self.board_shape.x:
+        for y_index in self.board_shape.y:
+            ref = self.get_tile(Vector2i(x_index, y_index))
+            if ref == null:
+                continue
+            self.delete_tile(ref)
+
+
+var initial_tile_count: int = 2
+
+
+func start_new_game() -> void:
+    self.clear_all_tiles()
+    for _i in range(initial_tile_count):
+        self.spawn_random_tile()
+
+
+func perform_game_move(direction: Vector2i) -> void:
+    var has_anything_moved = self.shift_board(direction)
+
+    if has_anything_moved:
+        self.spawn_random_tile()
