@@ -136,6 +136,14 @@ func spawn_random_tile() -> void:
     self.create_tile(cell_id, tile_power)
 
 
+var initial_tile_count: int = 2
+
+
+func start_new_game() -> void:
+    for _i in range(initial_tile_count):
+        self.spawn_random_tile()
+
+
 func perform_game_move(direction: Vector2i) -> void:
     var has_anything_moved = self.shift_board(direction)
 

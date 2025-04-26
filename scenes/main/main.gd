@@ -4,8 +4,7 @@ extends Node2D
 
 
 func _ready() -> void:
-    self.game_controller.spawn_random_tile()
-    self.game_controller.spawn_random_tile()
+    self.game_controller.start_new_game()
 
 
 var directions: Array[Vector2i] = [
