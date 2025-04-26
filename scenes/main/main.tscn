@@ -10,8 +10,3 @@ script = ExtResource("1_utrw1")
 [node name="GameController" parent="." instance=ExtResource("3_358rl")]
 
 [node name="InputHandler" parent="." instance=ExtResource("3_0fmxu")]
-
-[node name="UpdateTimer" type="Timer" parent="."]
-autostart = true
-
-[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
