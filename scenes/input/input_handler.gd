@@ -2,6 +2,7 @@ extends Node2D
 class_name InputHandler
 
 signal perform_game_move(direction: Vector2i)
+signal restart_game()
 
 
 func _input(event: InputEvent) -> void:
@@ -13,5 +14,7 @@ func _input(event: InputEvent) -> void:
         self.perform_game_move.emit(Vector2i.DOWN)
     elif event.is_action_pressed("move_up"):
         self.perform_game_move.emit(Vector2i.UP)
+    elif event.is_action_pressed("reset"):
+        self.restart_game.emit()
     else:
         return
