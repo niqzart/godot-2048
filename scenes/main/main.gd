@@ -19,10 +19,7 @@ var current_direction_index: int = 0
 
 func _on_update_timer_timeout() -> void:
     var direction = self.directions[self.current_direction_index]
-    self.game_controller.shift_board(direction)
+    self.game_controller.perform_game_move(direction)
 
     self.current_direction_index += 1
     self.current_direction_index %= 4
-
-    if self.game_controller.game_state.list_empty_cell_ids().size() != 0:
-        self.game_controller.spawn_random_tile()
