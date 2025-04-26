@@ -136,10 +136,21 @@ func spawn_random_tile() -> void:
     self.create_tile(cell_id, tile_power)
 
 
+func clear_all_tiles() -> void:
+    var ref: TileRef  # type: TileRef | null
+    for x_index in self.board_shape.x:
+        for y_index in self.board_shape.y:
+            ref = self.get_tile(Vector2i(x_index, y_index))
+            if ref == null:
+                continue
+            self.delete_tile(ref)
+
+
 var initial_tile_count: int = 2
 
 
 func start_new_game() -> void:
+    self.clear_all_tiles()
     for _i in range(initial_tile_count):
         self.spawn_random_tile()
 
