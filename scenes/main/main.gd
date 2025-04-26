@@ -1,10 +1,12 @@
 extends Node2D
 
 @onready var game_controller: GameController = $GameController
+@onready var input_handler: InputHandler = $InputHandler
 
 
 func _ready() -> void:
     self.game_controller.start_new_game()
+    self.input_handler.perform_game_move.connect(self.game_controller.perform_game_move)
 
 
 var directions: Array[Vector2i] = [
