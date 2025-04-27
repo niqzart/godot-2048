@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://jxbsq4j1pk01"]
+[gd_scene load_steps=4 format=3 uid="uid://jxbsq4j1pk01"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_utrw1"]
+[ext_resource type="PackedScene" uid="uid://bussi1bmlukv8" path="res://scenes/input/input_handler.tscn" id="3_0fmxu"]
 [ext_resource type="PackedScene" uid="uid://bowce2gkdtjkp" path="res://scenes/game/controller/game_controller.tscn" id="3_358rl"]
 
 [node name="Main" type="Node2D"]
@@ -8,7 +9,4 @@ script = ExtResource("1_utrw1")
 
 [node name="GameController" parent="." instance=ExtResource("3_358rl")]
 
-[node name="UpdateTimer" type="Timer" parent="."]
-autostart = true
-
-[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
+[node name="InputHandler" parent="." instance=ExtResource("3_0fmxu")]
