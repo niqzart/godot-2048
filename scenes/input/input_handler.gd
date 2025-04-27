@@ -84,6 +84,39 @@ func process_action(action_name: String, delta: float) -> void:
         self.action_type_to_hold_time[action_type] = 0
 
 
+var starting_swipe_position  # type: Vector2 | null
+const minimum_swipe_length: float = 50
+
+
+func snap_to_cardinal_direction(vector: Vector2) -> Vector2i:
+    return Vector2i(Vector2(1, 0).rotated(snapped(vector.angle(), PI / 2)))
+
+
+func process_swipe() -> void:
+    if self.starting_swipe_position == null:
+        # swiped has already been recorded, so do nothing
+        return
+
+    var current_position: Vector2 = self.get_global_mouse_position()
+    var swipe_vector: Vector2 = current_position - self.starting_swipe_position
+    if swipe_vector.length() < self.minimum_swipe_length:
+        return
+
+    var swipe_direction: Vector2i = self.snap_to_cardinal_direction(swipe_vector)
+    self.perform_game_move.emit(swipe_direction)
+    self.starting_swipe_position = null
+
+
+func process_touch() -> void:
+    if Input.is_action_just_pressed("touch"):
+        self.starting_swipe_position = self.get_global_mouse_position()
+    elif Input.is_action_pressed("touch"):
+        self.process_swipe()
+    elif Input.is_action_just_released("touch"):
+        self.starting_swipe_position = null
+
+
 func _process(delta: float) -> void:
     for action_name in action_name_to_type.keys():
         self.process_action(action_name, delta)
+    self.process_touch()
