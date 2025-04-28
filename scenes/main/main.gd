@@ -1,7 +1,7 @@
-extends Node2D
+extends CanvasLayer
 
-@onready var game_controller: GameController = $GameController
-@onready var input_handler: InputHandler = $InputHandler
+@onready var game_controller: GameController = $GameContainer/GameController
+@onready var input_handler: InputHandler = $GameContainer/InputHandler
 
 
 func _ready() -> void:
