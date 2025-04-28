@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 class_name InputHandler
 
 signal perform_game_move(direction: Vector2i)
@@ -109,7 +109,9 @@ func process_swipe() -> void:
 
 func process_touch() -> void:
     if Input.is_action_just_pressed("touch"):
-        self.starting_swipe_position = self.get_global_mouse_position()
+        var mouse_position = self.get_global_mouse_position()
+        if self.get_global_rect().has_point(mouse_position):
+            self.starting_swipe_position = mouse_position
     elif Input.is_action_pressed("touch"):
         self.process_swipe()
     elif Input.is_action_just_released("touch"):

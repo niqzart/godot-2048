@@ -24,4 +24,4 @@ grow_vertical = 2
 scale = Vector2(1.75, 1.75)
 
 [node name="InputHandler" parent="GameContainer" instance=ExtResource("3_0fmxu")]
-position = Vector2(-28.125, -28.125)
+layout_mode = 2
