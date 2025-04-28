@@ -110,7 +110,7 @@ func process_swipe() -> void:
 func process_touch() -> void:
     if Input.is_action_just_pressed("touch"):
         var mouse_position = self.get_global_mouse_position()
-        if self.get_global_rect().has_point(mouse_position):
+        if self.get_global_rect().grow(200).has_point(mouse_position):
             self.starting_swipe_position = mouse_position
     elif Input.is_action_pressed("touch"):
         self.process_swipe()
