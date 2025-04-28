@@ -4,9 +4,24 @@
 [ext_resource type="PackedScene" uid="uid://bussi1bmlukv8" path="res://scenes/input/input_handler.tscn" id="3_0fmxu"]
 [ext_resource type="PackedScene" uid="uid://bowce2gkdtjkp" path="res://scenes/game/controller/game_controller.tscn" id="3_358rl"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="CanvasLayer"]
 script = ExtResource("1_utrw1")
 
-[node name="GameController" parent="." instance=ExtResource("3_358rl")]
+[node name="GameContainer" type="HBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -371.875
+offset_top = -371.875
+offset_right = 371.875
+offset_bottom = 371.875
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="InputHandler" parent="." instance=ExtResource("3_0fmxu")]
+[node name="GameController" parent="GameContainer" instance=ExtResource("3_358rl")]
+scale = Vector2(1.75, 1.75)
+
+[node name="InputHandler" parent="GameContainer" instance=ExtResource("3_0fmxu")]
+layout_mode = 2
